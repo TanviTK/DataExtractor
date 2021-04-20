@@ -52,9 +52,24 @@ namespace DE.Processing.Processors.Factory.PDF
         }
 
         #region Helper
+        /// <summary>
+        ///  Checks for the complete string else picks the first string in the array that contains the type into Index and returns the array with Index + position 
+        /// </summary>
+        /// <param name="strArray"></param>
+        /// <param name="type"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
         public static string GetNextPositionValue(string[] strArray, string type, int position)
         {
-            var index = Array.IndexOf(strArray, type) + position;
+            int index;
+            if(strArray.Contains(type))
+            {
+                index = Array.IndexOf(strArray, type) + position;
+            }
+            else
+            {
+                index = Array.IndexOf(strArray, strArray.Where(str => str.Contains(type)).FirstOrDefault()) + position;
+            }
             return strArray[index];
         }
         #endregion Helper 
